@@ -13,6 +13,9 @@ sleep 1
 groupdel -f jenkins >/dev/null 2>&1 || : 
 userdel -f -r jenkins >/dev/null 2>&1 || : 
 
+rm -fr /lib/systemd/system/jenkins.service
+rm -fr /usr/lib/systemd/system/jenkins.service
+
 rm -fr /etc/sysconfig/jenkins
 rm -fr /etc/init.d/jenkins
 rm -fr /etc/logrotate.d/jenkins
@@ -25,7 +28,6 @@ rm -fr /var/cache/jenkins
 rm -fr /var/lib/jenkins
 
 rm -f /usr/sbin/rcjenkins
-
 
 /bin/systemctl daemon-reload 
 
