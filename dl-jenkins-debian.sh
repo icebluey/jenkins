@@ -28,7 +28,6 @@ echo "Current: ${_current_ver}"
 _current_sha256="$(wget -qO- 'https://www.jenkins.io/download/' | grep -i 'jenkins\.war'  -A 5 | grep -i 'SHA-256:' -A 1 | grep -ivE 'SHA-256|-' | tail -n 1)"
 _lts_sha256="$(wget -qO- 'https://www.jenkins.io/download/' | grep -i 'jenkins\.war'  -A 5 | grep -i 'SHA-256:' -A 1 | grep -ivE 'SHA-256|-' | head -n 1)"
 
-
 cd /tmp
 rm -fr /tmp/.dl.jenkins.tmp
 mkdir /tmp/.dl.jenkins.tmp
