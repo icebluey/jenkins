@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 export PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-TZ='UTC'; export TZ
+TZ="UTC"; export TZ
+
+cd "$(dirname "$0")"
 
 /bin/systemctl daemon-reload
 /bin/systemctl stop jenkins.service >/dev/null 2>&1 || : 
