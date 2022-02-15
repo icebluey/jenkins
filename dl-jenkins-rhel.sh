@@ -75,6 +75,8 @@ TZ="UTC"; export TZ
 
 cd "$(dirname "$0")"
 
+#yum install -y chkconfig net-tools java-11-openjdk-devel
+
 /bin/systemctl daemon-reload >/dev/null 2>&1 || : 
 /bin/systemctl stop jenkins.service >/dev/null 2>&1 || : 
 /bin/systemctl disable jenkins.service >/dev/null 2>&1 || : 
