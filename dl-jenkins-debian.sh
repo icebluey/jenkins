@@ -2,6 +2,8 @@
 export PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 TZ='UTC'; export TZ
 
+umask 022
+
 # jenkins-2.295-1.1.noarch.rpm
 # /usr/lib/jenkins/jenkins.war
 
@@ -62,6 +64,40 @@ chmod 0644 etc/default/jenkins
 
 ###############################################################################
 sleep 2
+
+echo '#!/usr/bin/env bash
+export PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+TZ="UTC"; export TZ
+
+cd "$(dirname "$0")"
+
+/bin/systemctl daemon-reload >/dev/null 2>&1 || : 
+/bin/systemctl stop jenkins.service >/dev/null 2>&1 || : 
+/bin/systemctl disable jenkins.service >/dev/null 2>&1 || : 
+
+groupdel -f jenkins >/dev/null 2>&1 || : 
+userdel -f -r jenkins >/dev/null 2>&1 || : 
+
+set -e
+
+getent group jenkins >/dev/null || /usr/sbin/groupadd -r jenkins
+getent passwd jenkins >/dev/null || /usr/sbin/useradd -r -d /var/lib/jenkins \
+  -g jenkins -s /usr/sbin/nologin -c "Jenkins Automation Server" jenkins
+
+sleep 1
+if getent group jenkins >/dev/null && getent passwd jenkins >/dev/null ; then
+    chown -R jenkins:jenkins /var/lib/jenkins
+    chown -R jenkins:jenkins /var/log/jenkins
+    chown -R jenkins:jenkins /var/cache/jenkins
+else
+    echo -e "Group:\n$(getent group jenkins)"
+    echo
+    echo -e "User:\n$(getent passwd jenkins)"
+    echo
+fi
+
+exit
+' > usr/share/jenkins/.postinstall-jenkins.sh
 
 rm -fr /tmp/jenkins*.tar*
 echo
