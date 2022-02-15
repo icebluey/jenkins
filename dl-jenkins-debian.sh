@@ -13,7 +13,6 @@ umask 022
 #https://get.jenkins.io/war-stable/${_lts_ver}/jenkins.war
 #https://get.jenkins.io/war/${_current_ver}/jenkins.war
 
-
 set -e
 
 # wget -qO- 'https://www.jenkins.io/download/' | grep -i 'jenkins\.war' | sed 's|'\''|\n|g' | grep '^https://' | grep 'get.jenkins.io/war/' | cut -d/ -f5
