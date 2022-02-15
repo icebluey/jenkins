@@ -15,7 +15,7 @@ set -e
 
 getent group jenkins >/dev/null || /usr/sbin/groupadd -r jenkins
 getent passwd jenkins >/dev/null || /usr/sbin/useradd -r -d /var/lib/jenkins \
--g jenkins -s /usr/sbin/nologin -c "Jenkins Automation Server" jenkins
+  -g jenkins -s /usr/sbin/nologin -c "Jenkins Automation Server" jenkins
 
 sleep 1
 if getent group jenkins >/dev/null && getent passwd jenkins >/dev/null ; then
