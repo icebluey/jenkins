@@ -71,6 +71,8 @@ TZ="UTC"; export TZ
 
 cd "$(dirname "$0")"
 
+#apt install -y daemon procps psmisc net-tools openjdk-11-jdk
+
 /bin/systemctl daemon-reload >/dev/null 2>&1 || : 
 /bin/systemctl stop jenkins.service >/dev/null 2>&1 || : 
 /bin/systemctl disable jenkins.service >/dev/null 2>&1 || : 
